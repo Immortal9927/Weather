@@ -58,3 +58,47 @@ input {
     min-height: 20px;
     color: #687789;
 }
+
+.card {
+    background: white;
+    border: 1px solid #dce4eb;
+    border-radius: 14px;
+    padding: 20px;
+    margin-bottom: 18px;
+}
+
+.current-weather {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px
+}
+
+.location {
+    color: #687789;
+    margin-bottom: 10px;
+}
+
+.temperature {
+    font-size: 64px;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.details div {
+    background: #f4f7fa;
+    padding: 14px;
+    border-radius: 10px;
+}
+
+.details span {
+    display: block;
+    color: #687789;
+    font-size: 13px;
+    margin-bottom: 5px;
+}
