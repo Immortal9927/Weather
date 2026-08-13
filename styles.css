@@ -102,3 +102,65 @@ input {
     font-size: 13px;
     margin-bottom: 5px;
 }
+
+.hourly-forecast {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+}
+
+.hour {
+    min-width: 90px;
+    padding: 12px;
+    text-align: center;
+    background-color: #f4f7fa;
+    border-radius: 10px;
+}
+
+.hour-time {
+    color: #687789;
+    font-size: 13px;
+}
+
+.hour-icon {
+    font-size: 26px;
+    margin: 8px 0;
+}
+
+.hour-temperature {
+    font-weight: bold;
+}
+
+.daily-forecast {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 10px;
+}
+
+.day {
+    padding: 14px 8px;
+    text-align: center;
+    background: #f4f7fa;
+    border-radius: 10px;
+}
+
+.day-name  {
+    font-weight: bold;
+}
+
+.day-date {
+    color: #687789;
+    font-size: 12px;
+    margin: 4px 0 8px;
+}
+
+.day-icon {
+    font-size: 28px;
+    margin-bottom: 8px;
+}
+
+.low-temperature {
+    color: #687789;
+    margin-left: 6px;
+}
+
