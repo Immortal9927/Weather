@@ -45,11 +45,29 @@ async function searchWeather() {
         showStatus("");
     } catch (error) {
         console.error(error);
-        showStatus("Weather for this city could not be found");
+  $      showStatus("Weather for this city could not be found");
     }
 }
 
 // Geocoding API
 async function getCoordinates(city) {
-    
+    const url = "https://geocoding-api.open-meteo.com/v1/search" +
+    `?name=${encodeURIComponent(city)}` +
+    "&count=1" +
+    "&language=en" +
+    "&format=json";
+
+    const response = await fetch(url);
+
+    if (!response.ok) {
+        throw new Error("Geocoding request failed");
+    }
+
+    const data = await response.json();
+
+    if (!data.results || data.results.length === 0) {
+        throw new Error("City not found");
+    }
+
+    return data.results[0];
 }
