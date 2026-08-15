@@ -14,3 +14,37 @@ const precipitationElement = document.querySelector("#precipitation");
 
 const hourlyForecastElement = document.querySelector("hourlyForecast");
 const dailyForecastElement = document.querySelector("#dailyForecast");
+
+// Event Listener
+searchButton.addEventListener("click", searchWeather);
+
+cityInput.addEventListener("keydown", function (event){
+    if (event.key === "Enter") {
+        searchWeather();
+    }
+})
+
+// search city
+async function searchWeather() {
+    const city = cityInput.value.trim();
+
+    if (city === "") {
+        showStatus("Please enter a city.");
+        return;
+    }
+
+    try {
+        showStatus("Searching...");
+
+        const location = await GeolocationCoordinates(city);
+
+        const weather = await getWeather(latitude, longitude);
+
+        displayWeather(location, weather);
+
+        showStatus("");
+    } catch (error) {
+        console.error(error);
+        showStatus("Weather for this city could not be found");
+    }
+}
