@@ -36,7 +36,7 @@ async function searchWeather() {
     try {
         showStatus("Searching...");
 
-        const location = await GeolocationCoordinates(city);
+        const location = await getCoordinates(city);
 
         const weather = await getWeather(latitude, longitude);
 
@@ -47,4 +47,9 @@ async function searchWeather() {
         console.error(error);
         showStatus("Weather for this city could not be found");
     }
+}
+
+// Geocoding API
+async function getCoordinates(city) {
+    
 }
