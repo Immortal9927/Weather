@@ -45,7 +45,7 @@ async function searchWeather() {
         showStatus("");
     } catch (error) {
         console.error(error);
-  $      showStatus("Weather for this city could not be found");
+        showStatus("Weather for this city could not be found");
     }
 }
 
