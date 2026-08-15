@@ -71,3 +71,31 @@ async function getCoordinates(city) {
 
     return data.results[0];
 }
+
+// Weather API 
+async function getWeather(latitude, longitude) {
+    const url = 
+        "https://api.open-meteo.com/v1/forecast" +
+        `?latitude=${latitude}` +
+        `?longitude=${longitude}` +
+        `current=${[
+        "temperature_2m",
+        "realtive_humidity_2m",
+        "apparent_temperature",
+        "precipitation",
+        "weather_code",
+        "wind_speed_10m"
+        ].join(",")}` +
+        "&hourly=temperature_2m,precipitation_probability,weather_code" +
+        "&daily=weather_code,temperature_2m_max,temerature_2m_min" +
+        "&forecast_days=7" +
+        "&timezone=auto";
+
+    const response = await fetch (url);
+
+    if(!response.ok) {
+        throw new Error("Weather request failed");
+    }
+
+    return await response.json();
+}
