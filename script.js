@@ -198,6 +198,36 @@ function displayHourlyForecast(hourly, currentTime) {
 }
 
 function displayDailyForecast() {
+    dailyForecastElement.innerHTML = "";
+
+    for (let i = 0; i<daily.time.length; i++) {
+        const dayElement = document.createElement("div");
+
+        dayElement.classList.add("day");
+        dayElement.innerHTML = `
+        <div class="day-name">
+            ${formatDay(daily.time[i])}
+        </div>
+
+        <div class="day-date">
+            ${formatDate(daily.time[i])}
+        </div>
+
+        <div class="day-icon">
+            ${getWeatherIcon(daily.weather_code[i])}
+        </div>
+
+        <strong>
+            ${Math.round(daily.temperature_2m_min[i])}°
+        </strong>
+
+        <strong>
+            ${Math.round(daily.temperature_2m_min[i])}°
+        </strong>
+        `
+
+        dailyForecastElement.appendChild(dayElement);
+    }
 
 }
 
@@ -207,3 +237,13 @@ function formatHour(dateString) {
         minute: "2-digit"
     }); 
 }
+
+function formatDay(dateString) {
+
+}
+
+function getWeatherIcon() {
+
+}
+
+searchWeather();
