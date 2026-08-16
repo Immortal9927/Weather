@@ -1,6 +1,6 @@
 // DOM elements
-const cityInput = document.querySelector("#cityInput");
-const searchButton = document.querySelector("#searchButton");
+const cityInput = document.querySelector("#city_id");
+const searchButton = document.querySelector("#search_button");
 const statusElement = document.querySelector("#status");
 
 const locationElement = document.querySelector("#location");
@@ -9,10 +9,10 @@ const conditionElement = document.querySelector("#condition");
 
 const feelsLikeElement = document.querySelector("#feelsLike");
 const humidityElement = document.querySelector("#humidity");
-const windElement = document.querySelector("#condition");
+const windElement = document.querySelector("#wind");
 const precipitationElement = document.querySelector("#precipitation");
 
-const hourlyForecastElement = document.querySelector("hourlyForecast");
+const hourlyForecastElement = document.querySelector("#hourlyForecast");
 const dailyForecastElement = document.querySelector("#dailyForecast");
 
 // Event Listener
@@ -38,7 +38,7 @@ async function searchWeather() {
 
         const location = await getCoordinates(city);
 
-        const weather = await getWeather(latitude, longitude);
+        const weather = await getWeather(location.latitude, location.longitude);
 
         displayWeather(location, weather);
 
@@ -77,17 +77,17 @@ async function getWeather(latitude, longitude) {
     const url = 
         "https://api.open-meteo.com/v1/forecast" +
         `?latitude=${latitude}` +
-        `?longitude=${longitude}` +
-        `current=${[
+        `&longitude=${longitude}` +
+        `&current=${[
         "temperature_2m",
-        "realtive_humidity_2m",
+        "relative_humidity_2m",
         "apparent_temperature",
         "precipitation",
         "weather_code",
         "wind_speed_10m"
         ].join(",")}` +
         "&hourly=temperature_2m,precipitation_probability,weather_code" +
-        "&daily=weather_code,temperature_2m_max,temerature_2m_min" +
+        "&daily=weather_code,temperature_2m_max,temperature_2m_min" +
         "&forecast_days=7" +
         "&timezone=auto";
 
@@ -157,7 +157,7 @@ function getWeatherDescription(code) {
 }
 
 function displayHourlyForecast(hourly, currentTime) {
-    hourlyForecastElement.innerHtml = "";
+    hourlyForecastElement.innerHTML = "";
 
     let startIndex = hourly.time.findIndex(
         time => time >= currentTime
@@ -197,7 +197,7 @@ function displayHourlyForecast(hourly, currentTime) {
     }
 }
 
-function displayDailyForecast() {
+function displayDailyForecast(daily) {
     dailyForecastElement.innerHTML = "";
 
     for (let i = 0; i<daily.time.length; i++) {
@@ -218,7 +218,7 @@ function displayDailyForecast() {
         </div>
 
         <strong>
-            ${Math.round(daily.temperature_2m_min[i])}°
+            ${Math.round(daily.temperature_2m_max[i])}°
         </strong>
 
         <strong>
@@ -251,8 +251,21 @@ function formatDate(dateString) {
     });
 }
 
-function getWeatherIcon() {
+function getWeatherIcon(code) {
+  if (code === 0) return "☀️";
+  if (code === 1 || code === 2) return "🌤️";
+  if (code === 3) return "☁️";
+  if (code === 45 || code === 48) return "🌁";
+  if (code >= 51 && code <= 65) return "🌧️";
+  if (code >= 71 && code <= 75) return "🌨️";
+  if (code >= 80 && code <= 82) return "🌧️";
+  if (code >= 95) return "⛈️";
 
+  return "🌡️";
+}
+
+function showStatus(message) {
+    statusElement.textContent = message;
 }
 
 searchWeather();
