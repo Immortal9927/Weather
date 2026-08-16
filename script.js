@@ -156,8 +156,45 @@ function getWeatherDescription(code) {
     return description[code] || "unknown";
 }
 
-function displayHourlyForecast() {
+function displayHourlyForecast(hourly, currentTime) {
+    hourlyForecastElement.innerHtml = "";
 
+    let startIndex = hourly.time.findIndex(
+        time => time >= currentTime
+    );
+
+    if (startIndex === -1) {
+        startIndex = 0;
+    }
+
+    const endIndex = Math.min(
+        startIndex + 24,
+        hourly.time.length
+    );
+
+    for (let i = startIndex; i < endIndex; i++) {
+        const hourElement = document.createElement("div");
+        hourElement.classList.add("hour");
+        hourElement.innerHTML = 
+            `<div class="hour-time">
+                ${formatHour(hourly.time[i])}
+            </div>
+
+            <div class="hour-icon">
+                ${getWeatherIcon(hourly.weather_code[i])}
+            </div>
+
+             <div class="hour-temperature">
+                ${Math.round(hourly.temperature_2m[i])}°C
+            </div>
+
+            <small>
+                ${hourly.precipitation_probability[i]}% rain
+            </small>
+            `;
+
+            hourlyForecastElement.appendChild(hourElement);
+    }
 }
 
 function displayDailyForecast() {
