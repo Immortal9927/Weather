@@ -200,3 +200,10 @@ function displayHourlyForecast(hourly, currentTime) {
 function displayDailyForecast() {
 
 }
+
+function formatHour(dateString) {
+    return new Date(dateString).toLocaleTimeString([],{
+        hour: "2-digit",
+        minute: "2-digit"
+    }); 
+}
