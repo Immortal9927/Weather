@@ -244,6 +244,13 @@ function formatDay(dateString) {
     });
 }
 
+function formatDate(dateString) {
+    return new Date(dateString).toLocaleDateString([], {
+        day: "2-digit",
+        month: "2-digit"
+    });
+}
+
 function getWeatherIcon() {
 
 }
