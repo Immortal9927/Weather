@@ -239,7 +239,9 @@ function formatHour(dateString) {
 }
 
 function formatDay(dateString) {
-
+    return new Date(dateString).toLocaleDateString([], {
+        weekday: "short"
+    });
 }
 
 function getWeatherIcon() {
