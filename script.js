@@ -99,3 +99,44 @@ async function getWeather(latitude, longitude) {
 
     return await response.json();
 }
+
+// display current weather
+function displayWeather(location, weather) {
+    const current = weather.current;
+    locationElement.textContent = 
+        `${location.name}, ${location.country}`;
+
+    temperatureElement.textContent =
+        `${Math.round(current.temperature_2m)}°C`;
+
+    feelsLikeElement.textContent = 
+        `${Math.round(current.apparent_temperature)}°C`;
+
+    conditionElement.textContent = 
+        getWeatherDescription(current.weather_code);
+
+    humidityElement.textContent = 
+        `${current.relative_humidity_2m}%`;
+
+    windElement.textContent = 
+        `${Math.round(current.wind_speed_10m)} km/h`;
+
+    precipitationElement.textContent = 
+        `${current.precipitation} mm`;
+    
+    displayHourlyForecast(weather.hourly, current.time);
+    displayDailyForecast(weather.daily);
+
+}
+
+function getWeatherDescription() {
+
+}
+
+function displayHourlyForecast() {
+
+}
+
+function displayDailyForecast() {
+
+}
